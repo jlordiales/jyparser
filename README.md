@@ -145,7 +145,33 @@ them, if the new value you want to set for the property is a string you need to
 explicitly escape the quotes as in the example. Otherwise, `jq` will complain
 that the value is not valid (rightfully so). This is not needed for numbers or
 booleans.
+So the following works as expected:
 
+```bash
+$ cat test.json | docker run -i --rm jlordiales/jyparser set ".menu.id" 15
+{
+  "menu": {
+    "id": 15,
+    "value": "File",
+    "popup": {
+      "menuitem": [
+        {
+          "value": "New",
+          "onclick": "CreateNewDoc()"
+        },
+        {
+          "value": "Open",
+          "onclick": "OpenDoc()"
+        },
+        {
+          "value": "Close",
+          "onclick": "CloseDoc()"
+        }
+      ]
+    }
+  }
+}
+```
 The same works for YAML:
 ```bash
 $ cat test.yml | docker run -i --rm jlordiales/jyparser set ".menu.id" \"new_id\"
