@@ -1,0 +1,11 @@
+menu:
+  id: file
+  value: File
+  popup:
+    menuitem:
+    - onclick: CreateNewDoc()
+      value: New
+    - onclick: OpenDoc()
+      value: Open
+    - onclick: CloseDoc()
+      value: Close
