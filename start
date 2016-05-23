@@ -1,7 +1,7 @@
 #!/bin/sh
 
 show_usage() {
-  echo "Usage: $0 [get ParamterName | set ParamterName ParameterValue | join]"
+  echo "Usage: $0 [get <jq_filter> | set <jq_filter> <new_value>]"
   echo ""
   exit 1
 }
