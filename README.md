@@ -190,9 +190,8 @@ menu:
 ```
 
 # Limitations
-Since YAML is actually a [superset of
-JSON](http://yaml.org/spec/1.2/spec.html#id2759572) this will only work for those YAML files
-that can be correctly converted to JSON.
+Since YAML is actually a [superset of JSON](http://yaml.org/spec/1.2/spec.html#id2759572) 
+this will only work for those YAML files that can be correctly converted to JSON.
 
 # Acknowledgments
 The JSON <=> YAML conversion to be able to apply `jq` filters seamlessly is
