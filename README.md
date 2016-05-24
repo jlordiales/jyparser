@@ -196,3 +196,4 @@ this will only work for those YAML files that can be correctly converted to JSON
 # Acknowledgments
 The JSON <=> YAML conversion to be able to apply `jq` filters seamlessly is
 heavily inspired by [y2j](https://github.com/wildducktheories/y2j).
+
