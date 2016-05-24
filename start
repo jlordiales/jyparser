@@ -6,12 +6,6 @@ show_usage() {
   exit 1
 }
 
-not_single_element_returned() {
-    echo "Get selector must result on a single element being returned (number, boolean or string). Returned: "
-    echo $1
-    exit 1
-}
-
 y2j() {
   python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
 }
@@ -23,17 +17,7 @@ j2y() {
 yq() {
   local jq_response=$(y2j | jq "$@") 
   if is_json "$jq_response"; then
-    #not_single_element_returned "$(echo $jq_response | j2y)"
     echo "$jq_response" | j2y
-  else
-    echo "$jq_response"
-  fi
-}
-
-jq_single_return() {
-  local jq_response=$(jq "$@") 
-  if is_json $jq_response; then
-    not_single_element_returned "$jq_response"
   else
     echo "$jq_response"
   fi
@@ -44,7 +28,7 @@ is_json() {
 }
 
 set_value() {
-  [ $# -lt 3 ] && show_usage
+  [ $# -ne 3 ] && show_usage
 
   if is_json $1; then
     echo "$1" | jq "$2 |= $3"  
@@ -54,7 +38,7 @@ set_value() {
 }
 
 read_value() {
-  [ $# -lt 2 ] && show_usage
+  [ $# -ne 2 ] && show_usage
 
   if is_json $1; then
     echo "$1" | jq "$2"
