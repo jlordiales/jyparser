@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 show_usage() {
   echo "Usage: "$0" [get <jq_filter> | set <jq_filter> <new_value>]"
@@ -31,16 +31,16 @@ set_value() {
   [ $# -ne 3 ] && show_usage
 
   if is_json $1; then
-    echo "$1" | jq ""$2" |= "$3"" 
+    echo "$1" | jq "$2 |= $3" 
   else
-    echo "$1" | y2j | jq ""$2" |= "$3"" | j2y
+    echo "$1" | y2j | jq "$2 |= $3" | j2y
   fi
 }
 
 read_value() {
   [ $# -ne 2 ] && show_usage
 
-  if is_json $1; then
+  if is_json "$1"; then
     echo "$1" | jq "$2"
   else
     echo "$1" | yq "$2"
