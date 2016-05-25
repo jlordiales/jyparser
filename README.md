@@ -199,3 +199,10 @@ this will only work for those YAML files that can be correctly converted to JSON
 The JSON <=> YAML conversion to be able to apply `jq` filters seamlessly is
 heavily inspired by [y2j](https://github.com/wildducktheories/y2j).
 
+# Links
+You can find more info on the use case and motivation for this project on this
+[blog post](https://jlordiales.me/2016/05/24/jyparser/).
+
+The automated build for the docker image can be found
+[here](https://hub.docker.com/r/jlordiales/jyparser/).
+
