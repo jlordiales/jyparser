@@ -7,3 +7,5 @@ install:
   - sudo apt-get install -qq bc
 script:
   - bats ./start_test.bats
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
