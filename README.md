@@ -206,3 +206,7 @@ You can find more info on the use case and motivation for this project on this
 The automated build for the docker image can be found
 [here](https://hub.docker.com/r/jlordiales/jyparser/).
 
+# License
+
+MIT.  
+Full license text is available in [LICENSE](LICENSE).
