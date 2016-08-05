@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 show_usage() {
   echo "Usage: "$0" [get <jq_filter> | set <jq_filter> <new_value>]"
