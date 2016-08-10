@@ -38,12 +38,15 @@ set_value() {
 }
 
 read_value() {
-  [ $# -ne 2 ] && show_usage
+  [ $# -lt 2 ] && show_usage
 
-  if is_json "$1"; then
-    echo "$1" | jq "$2"
+  local input="$1"
+  shift
+
+  if is_json "$input"; then
+    echo "$input" | jq "$@"
   else
-    echo "$1" | yq "$2"
+    echo "$input" | yq "$@"
   fi
 }
 

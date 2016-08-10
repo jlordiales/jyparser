@@ -6,12 +6,6 @@
   [ $(expr "${lines[0]}" : "Usage:.*") -ne 0 ]
 }
 
-@test "get with too many parameters shows usage instructions" {
-  run ./start test.yml get . extra param
-  [ $status -eq 1 ]
-  [ $(expr "${lines[0]}" : "Usage:.*") -ne 0 ]
-}
-
 @test "get with too few parameters shows usage instructions" {
   run ./start test.yml get
   [ $status -eq 1 ]
