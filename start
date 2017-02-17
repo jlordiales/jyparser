@@ -1,4 +1,27 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+# ensure third party tools are installed
+requirements_check() {
+  local which_bin="jq python"
+  local ret=0
+
+  which ${which_bin} &>/dev/null
+  ret=$?
+
+  if [ $ret -ne 0 ]; then
+    echo >&2 "binaries missing in [${which_bin}]"
+  else
+    # ensure python modules are installed
+    python -c 'import sys, yaml, json' 2>/dev/null
+    ret=$?
+    if [ $ret -ne 0 ]; then
+      echo >&2 "python modules missing in [yaml, json]"
+    fi
+  fi
+
+  return $ret
+
+}
 
 show_usage() {
   echo "Usage: "$0" [get <jq_filter> | set <jq_filter> <new_value>]"
@@ -15,7 +38,7 @@ j2y() {
 }
 
 yq() {
-  local jq_response="$(y2j | jq "$@")" 
+  local jq_response="$(y2j | jq "$@")"
   if is_json "$jq_response"; then
     echo "$jq_response" | j2y
   else
@@ -31,7 +54,7 @@ set_value() {
   [ $# -ne 3 ] && show_usage
 
   if is_json $1; then
-    echo "$1" | jq "$2 |= $3" 
+    echo "$1" | jq "$2 |= $3"
   else
     echo "$1" | y2j | jq "$2 |= $3" | j2y
   fi
@@ -51,6 +74,14 @@ read_value() {
 }
 
 main() {
+
+  # on demand requirements check
+  if [ "$1" == "req" ]; then
+    requirements_check; exit $?
+  fi
+  # ensure requirements are completed at each run
+  requirements_check || exit $?
+
   [ $# -ge 1 -a -f "$1"  ] && input="$(cat $1)" && shift || input="$(cat)"
 	case "$1" in
     set)            shift; set_value "$input" "$@";;

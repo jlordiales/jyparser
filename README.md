@@ -20,6 +20,14 @@ key in the document.
 If you are looking to run arbitrary jq-like filters on YAML I'd recommend you to
 take a look at [y2j](https://github.com/wildducktheories/y2j).
 
+# Installation
+
+If you want to use jyparser outside of Docker, ensure you've got all required tools :
+
+```bash
+./start req
+```
+
 # Usage
 The script's entry point accepts 2 operations: `get` and `set`. The script can
 take its inputs from stdin or read from a file if this is passed as the first
