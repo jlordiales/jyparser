@@ -4,6 +4,7 @@ RUN apk add --update jq \
                      python \
                      python-dev \
                      py-pip \
+                     bash \
     && rm -rf /var/cache/apk/* \
     && pip install pyyaml
 
