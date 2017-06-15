@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 in_docker() {
-  docker run -i --rm -v `pwd`:/jyparser:ro jlordiales/jyparser $@
+  docker run -i --rm -v "`pwd`/start":/bin/start  -v "`pwd`":/jyparser:ro jlordiales/jyparser $@
 }
 
 @test "operation different than set or get shows usage instructions" {
@@ -66,4 +66,14 @@ in_docker() {
 @test "set can update YAML coming from file" {
   result=$(in_docker test.yml set .menu.id 1 | in_docker get .menu.id)
   [ "$result" = "1" ]
+}
+
+@test "get can perform complex jq queries with YAML" {
+  run in_docker test.yml get ".menu | to_entries | .[] | [\"command\", .key, \"\(.value)\"] | @sh"
+  [ $(expr "${lines[0]}" : ".*command.*") -ne 0 ]
+}
+
+@test "get can perform complex jq queries with JSON" {
+  run in_docker test.json get ".menu | to_entries | .[] | [\"command\", .key, \"\(.value)\"] | @sh"
+  [ $(expr "${lines[0]}" : ".*command.*") -ne 0 ]
 }
