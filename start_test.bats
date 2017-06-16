@@ -77,3 +77,8 @@ in_docker() {
   run in_docker test.json get ".menu | to_entries | .[] | [\"command\", .key, \"\(.value)\"] | @sh"
   [ $(expr "${lines[0]}" : ".*command.*") -ne 0 ]
 }
+
+@test "get can use jq built-in parameters (like -r for raw output)" {
+  result=$(cat test.yml | in_docker get -r .menu.popup.menuitem[0].value)
+  [ "$result" = "New" ]
+}
