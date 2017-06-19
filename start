@@ -38,7 +38,7 @@ j2y() {
 }
 
 yq() {
-  local jq_response=$(y2j | jq "$*")
+  local jq_response=$(y2j | jq "$@")
   if is_json "$jq_response"; then
     echo "$jq_response" | j2y
   else
@@ -67,9 +67,9 @@ read_value() {
   shift
 
   if is_json "$input"; then
-    echo "$input" | jq "$*"
+    echo "$input" | jq "$@"
   else
-    echo "$input" | yq "$*"
+    echo "$input" | yq "$@"
   fi
 }
 
